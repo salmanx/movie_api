@@ -1,4 +1,6 @@
 class AuthenticationController < ApplicationController
+  before_action :authenticate_request!, only: [:user_update]
+
   def authenticate_user    
     user = User.find_for_database_authentication(email: params[:email])
     if user && user.valid_password?(params[:password])
@@ -20,13 +22,14 @@ class AuthenticationController < ApplicationController
     end
   end
 
+
   private
 
   def payload(user)
     return nil unless user and user.id
     {
       token: JsonWebToken.encode({user_id: user.id, exp: Time.now.to_i + 1 * 3600}),
-      user: {id: user.id, email: user.email}
+      user: { email: user.email }
     }
   end
 

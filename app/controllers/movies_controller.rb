@@ -4,7 +4,9 @@ class MoviesController < ApplicationController
 
   # GET /movies
   def index
-    @movies = Movie.includes(:category)
+    @movies = Rails.cache.fetch("all_movies", expires_in: 12.hours)  do
+      @movies = Movie.includes(:category)
+    end
 
     render json: @movies
   end
@@ -18,6 +20,7 @@ class MoviesController < ApplicationController
   def create
     # @movie = Movie.new(movie_params)
     @movie = current_user.movies.build(movie_params)
+    @movie.category = Category.find_by(params[:category_id])
 
     if @movie.save
       render json: @movie, status: :created, location: @movie

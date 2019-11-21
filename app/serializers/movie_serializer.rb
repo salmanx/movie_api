@@ -8,6 +8,6 @@ class MovieSerializer < ActiveModel::Serializer
   end
 
   def owner
-  	(object.user.first_name.to_s.first.upcase || '') + (object.user.last_name.to_s.first.upcase || '')
+  	(object.user.first_name.capitalize || '') +  ' ' + (object.user.last_name.capitalize || '')
   end
 end
