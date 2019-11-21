@@ -18,3 +18,8 @@ categories.each do |category|
         )
     end
 end
+
+(1..30).each do |r|
+	rating = Rating.new(movie_id: rand(1..10), user_id: rand(1..5), rating: rand(1..5))
+	rating.save
+end

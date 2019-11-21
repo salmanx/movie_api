@@ -2,9 +2,9 @@ class RatingController < ApplicationController
   before_action :authenticate_request!, only: [:create]
 
   def create
-    # raise params.inspect
     rating = Rating.new(rating_params)
-    if current_user.ratings.save!
+    rating.user = current_user
+    if rating.save
       render json: rating
     else
       render json: rating.errors, status: :unprocessable_entity
@@ -14,6 +14,6 @@ class RatingController < ApplicationController
   private
 
     def rating_params
-      params.require(:rating).permit(:rating, :movies_id)
+      params.require(:rating).permit(:rating, :movie_id)
     end
 end
