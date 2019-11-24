@@ -4,10 +4,14 @@ class MoviesController < ApplicationController
 
   # GET /movies
   def index
-    @movies = Rails.cache.fetch("all_movies", expires_in: 12.hours)  do
+    @movies = Movie.includes(:category)
+
+    if params[:category].present?
+      category = Category.find_by(id: params[:category])
+      @movies = category.movies
+    else
       @movies = Movie.includes(:category)
     end
-
     render json: @movies
   end
 
