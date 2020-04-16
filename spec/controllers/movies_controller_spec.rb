@@ -24,106 +24,111 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe MoviesController, type: :controller do
-
   # This should return the minimal set of attributes required to create a valid
   # Movie. As you add validations to Movie, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+  let(:valid_attributes) do
+    skip('Add a hash of attributes valid for your model')
+  end
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:invalid_attributes) do
+    skip('Add a hash of attributes invalid for your model')
+  end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # MoviesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe "GET #index" do
-    it "returns a success response" do
+  describe 'GET #index' do
+    it 'returns a success response' do
       movie = Movie.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end
   end
 
-  describe "GET #show" do
-    it "returns a success response" do
+  describe 'GET #show' do
+    it 'returns a success response' do
       movie = Movie.create! valid_attributes
-      get :show, params: {id: movie.to_param}, session: valid_session
+      get :show, params: { id: movie.to_param }, session: valid_session
       expect(response).to be_successful
     end
   end
 
-  describe "POST #create" do
-    context "with valid params" do
-      it "creates a new Movie" do
+  describe 'POST #create' do
+    context 'with valid params' do
+      it 'creates a new Movie' do
         expect {
-          post :create, params: {movie: valid_attributes}, session: valid_session
+          post :create,
+               params: { movie: valid_attributes }, session: valid_session
         }.to change(Movie, :count).by(1)
       end
 
-      it "renders a JSON response with the new movie" do
-
-        post :create, params: {movie: valid_attributes}, session: valid_session
+      it 'renders a JSON response with the new movie' do
+        post :create,
+             params: { movie: valid_attributes }, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
         expect(response.location).to eq(movie_url(Movie.last))
       end
     end
 
-    context "with invalid params" do
-      it "renders a JSON response with errors for the new movie" do
-
-        post :create, params: {movie: invalid_attributes}, session: valid_session
+    context 'with invalid params' do
+      it 'renders a JSON response with errors for the new movie' do
+        post :create,
+             params: { movie: invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
     end
   end
 
-  describe "PUT #update" do
-    context "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested movie" do
-        movie = Movie.create! valid_attributes
-        put :update, params: {id: movie.to_param, movie: new_attributes}, session: valid_session
-        movie.reload
-        skip("Add assertions for updated state")
+  describe 'PUT #update' do
+    context 'with valid params' do
+      let(:new_attributes) do
+        skip('Add a hash of attributes valid for your model')
       end
 
-      it "renders a JSON response with the movie" do
+      it 'updates the requested movie' do
+        movie = Movie.create! valid_attributes
+        put :update,
+            params: { id: movie.to_param, movie: new_attributes },
+            session: valid_session
+        movie.reload
+        skip('Add assertions for updated state')
+      end
+
+      it 'renders a JSON response with the movie' do
         movie = Movie.create! valid_attributes
 
-        put :update, params: {id: movie.to_param, movie: valid_attributes}, session: valid_session
+        put :update,
+            params: { id: movie.to_param, movie: valid_attributes },
+            session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq('application/json')
       end
     end
 
-    context "with invalid params" do
-      it "renders a JSON response with errors for the movie" do
+    context 'with invalid params' do
+      it 'renders a JSON response with errors for the movie' do
         movie = Movie.create! valid_attributes
 
-        put :update, params: {id: movie.to_param, movie: invalid_attributes}, session: valid_session
+        put :update,
+            params: { id: movie.to_param, movie: invalid_attributes },
+            session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
     end
   end
 
-  describe "DELETE #destroy" do
-    it "destroys the requested movie" do
+  describe 'DELETE #destroy' do
+    it 'destroys the requested movie' do
       movie = Movie.create! valid_attributes
       expect {
-        delete :destroy, params: {id: movie.to_param}, session: valid_session
+        delete :destroy, params: { id: movie.to_param }, session: valid_session
       }.to change(Movie, :count).by(-1)
     end
   end
-
 end

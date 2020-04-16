@@ -117,6 +117,10 @@ GEM
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
     pg (1.1.4)
+    pg_search (2.3.2)
+      activerecord (>= 5.2)
+      activesupport (>= 5.2)
+    prettier (0.18.1)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -198,6 +202,7 @@ GEM
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
+    will_paginate (3.3.0)
     zeitwerk (2.2.0)
 
 PLATFORMS
@@ -213,6 +218,8 @@ DEPENDENCIES
   jwt
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)
+  pg_search
+  prettier
   pry-rails
   puma (~> 3.11)
   rack-cors
@@ -221,6 +228,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
+  will_paginate
 
 RUBY VERSION
    ruby 2.6.3p62

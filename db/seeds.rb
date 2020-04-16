@@ -6,20 +6,18 @@ Category.delete_all
 Movie.delete_all
 User.delete_all
 
-categories = ["Action", "Thrilling", "Romance", "History", "War"]
-user = User.create(email: "salman@mail.com", password: "secret")
+categories = %w[Action Thrilling Romance History War]
+user = User.create(email: 'salman@mail.com', password: 'secret')
 categories.each do |category|
-    cat = Category.create!(name: category)
-    (1..10).each do
-        cat.movies.create!(
-            title: Faker::Book.title,
-            text: Faker::Movie.quote,
-            user: user
-        )
-    end
+  cat = Category.create!(name: category)
+  (1..10).each do
+    cat.movies.create!(
+      title: Faker::Book.title, text: Faker::Movie.quote, user: user
+    )
+  end
 end
 
 (1..30).each do |r|
-	rating = Rating.new(movie_id: rand(1..10), user_id: rand(1..5), rating: rand(1..5))
-	rating.save
+  rating = Rating.new(movie_id: rand(1..10), user_id: 1, rating: rand(1..5))
+  rating.save
 end

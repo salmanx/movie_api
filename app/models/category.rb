@@ -6,5 +6,5 @@ class Category < ApplicationRecord
 
   def create_slug
     self.slug = self.name.parameterize
-  end    
+  end
 end

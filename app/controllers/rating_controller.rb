@@ -1,5 +1,5 @@
 class RatingController < ApplicationController
-  before_action :authenticate_request!, only: [:create]
+  before_action :authenticate_request!, only: %i[create]
 
   def create
     rating = Rating.new(rating_params)
@@ -13,7 +13,7 @@ class RatingController < ApplicationController
 
   private
 
-    def rating_params
-      params.require(:rating).permit(:rating, :movie_id)
-    end
+  def rating_params
+    params.require(:rating).permit(:rating, :movie_id)
+  end
 end
