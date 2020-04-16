@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-  before_action :authenticate_request!, only: %i[create update destroy]
+  before_action :authenticate_request!, only: %i[create update destroy show]
   before_action :set_movie, only: %i[show update destroy]
 
   # GET /movies
@@ -77,6 +77,12 @@ class MoviesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_movie
     @movie = Movie.find(params[:id])
+
+    unless @movie.user === current_user
+      render json: { errors: ['You are not authorised!'] }, status: :unauthorized    
+    else
+      @movie  
+    end
   end
 
   # Only allow a trusted parameter "white list" through.
