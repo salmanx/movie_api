@@ -4,17 +4,8 @@ class MoviesController < ApplicationController
 
   # GET /movies
   def index
-    if params[:category].present?
-      @movies =
-        Movie.where(category_id: params[:category].to_i).paginate(
-          page: params[:page]
-        )
-    elsif params[:rating].present?
-      @movies =
-        Movie.find_by_ratings(params[:rating]).paginate(page: params[:page])
-    else
-      @movies = Movie.includes(:category).paginate(page: params[:page])
-    end
+
+    @movies = Movie.fetch_movies(params).paginate(page: params[:page])
 
     render json: {
              current_page: @movies.current_page,
@@ -34,8 +25,6 @@ class MoviesController < ApplicationController
   def create
     # @movie = Movie.new(movie_params)
     @movie = current_user.movies.build(movie_params)
-    @movie.category = Category.find_by(params[:category_id])
-
     if @movie.save
       render json: @movie, status: :created, location: @movie
     else

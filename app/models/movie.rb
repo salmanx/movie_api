@@ -12,17 +12,23 @@ class Movie < ApplicationRecord
 
   self.per_page = 9
 
+
+  def self.fetch_movies params
+    movies = Movie.all
+    movies = movies.where(category_id: params[:category].to_i) if params[:category].present?
+    movies = movies.joins(:ratings).merge(Rating.group('movies.id').having("AVG(rating) = #{params[:rating]}")) if params[:rating].present?
+    return  movies
+  end
+
   def self.find_by_ratings(rate)
-    movies = []
-    Movie.all.each { |m| movies << m if m&.rating <= rate }
-    return movies
+    Movie.joins(:ratings).merge(Rating.group('movies.id').having("AVG(rating) = #{rate}"))
   end
 
   def rating
     if self.ratings.size > 0
-      (self.ratings.sum(:rating) / self.ratings.size.to_f).ceil
+      # self.ratings.average(:rating)
+      (self.ratings.sum(:rating) / self.ratings.size.to_f).floor
     end
   end
 
-  # Movie.joins(:ratings).group('ratings.size').having('average(rating.size) > ?', 3)
 end
