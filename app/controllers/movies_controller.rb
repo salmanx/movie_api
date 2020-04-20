@@ -4,7 +4,6 @@ class MoviesController < ApplicationController
 
   # GET /movies
   def index
-
     @movies = Movie.fetch_movies(params).paginate(page: params[:page])
 
     render json: {
@@ -59,7 +58,7 @@ class MoviesController < ApplicationController
              total_pages: (@movies.total_entries / @movies.per_page.to_f).ceil,
              entries: ActiveModel::SerializableResource.new(@movies).as_json
            }
-    end
+  end
 
   private
 
@@ -68,9 +67,10 @@ class MoviesController < ApplicationController
     @movie = Movie.find(params[:id])
 
     unless @movie.user === current_user
-      render json: { errors: ['You are not authorised!'] }, status: :unauthorized    
+      render json: { errors: ['You are not authorised!'] },
+             status: :unauthorized
     else
-      @movie  
+      @movie
     end
   end
 

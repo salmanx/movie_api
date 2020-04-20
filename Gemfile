@@ -26,10 +26,8 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rack-cors'
 
 gem 'active_model_serializers'
-
 gem 'devise'
 gem 'jwt'
-
 gem 'pg_search'
 gem 'will_paginate'
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
