@@ -3,6 +3,10 @@ class MovieSerializer < ActiveModel::Serializer
   belongs_to :category
   belongs_to :user
 
+  def text
+    object.text.gsub(/^(.{50,}?).*$/m,'\1...')
+  end
+
   def created_at
     object.created_at.strftime('%B %d, %Y')
   end
