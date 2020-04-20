@@ -32,12 +32,12 @@ gem 'jwt'
 
 gem 'pg_search'
 gem 'will_paginate'
+gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
-  gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 end
 
 group :development do
@@ -48,8 +48,6 @@ group :development do
   gem "pry-rails"
   gem "awesome_print"
   gem 'prettier'
-
-
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

@@ -7,7 +7,7 @@ Movie.delete_all
 User.delete_all
 
 categories = %w[Action Thrilling Romance History War]
-user = User.create(email: 'salman@mail.com', password: 'secret')
+user = User.create(email: 'salman@gmail.com', password: 'secret')
 categories.each do |category|
   cat = Category.create!(name: category)
   (1..10).each do
